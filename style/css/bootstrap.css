@@ -5,13 +5,13 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root,
-[data-bs-theme=light] {
-  --bs-blue: #0d6efd;
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
-  --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
+[data-bs-theme=summer] {
+  --bs-blue: #87afeb;
+  --bs-indigo: #bf9afc;
+  --bs-purple: #836baf;
+  --bs-pink: #fca6d1;
+  --bs-red: #eb98a1;
+  --bs-orange: #e6ae81;
   --bs-yellow: #ffc107;
   --bs-green: #198754;
   --bs-teal: #20c997;
