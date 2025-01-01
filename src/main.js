@@ -1,35 +1,31 @@
-import { Client, Users } from 'node-appwrite';
+const sdk = require("node-appwrite");
+const client = new sdk.Client();
+const databases = new sdk.Databases(client);
 
-// This Appwrite function will be executed every time your function is triggered
-export default async ({ req, res, log, error }) => {
-  // You can use the Appwrite SDK to interact with other services
-  // For this example, we're using the Users service
-  const client = new Client()
-    .setEndpoint(process.env.APPWRITE_FUNCTION_API_ENDPOINT)
-    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-    .setKey(req.headers['x-appwrite-key'] ?? '');
-  const users = new Users(client);
+client
+  .setEndpoint("https://[YOUR_APPWRITE_ENDPOINT]")
+  .setProject("[codaxwebsite]")
 
-  try {
-    const response = await users.list();
-    // Log messages and errors to the Appwrite Console
-    // These logs won't be seen by your end users
-    log(`Total users: ${response.total}`);
-  } catch(err) {
-    error("Could not list users: " + err.message);
-  }
+const blogsCollectionId = '[YOUR_BLOGS_COLLECTION_ID]';
+const challengesCollectionId = '[YOUR_CHALLENGES_COLLECTION_ID]';
 
-  // The req object contains the request data
-  if (req.path === "/ping") {
-    // Use res object to respond with text(), json(), or binary()
-    // Don't forget to return a response!
-    return res.text("Pong");
-  }
+async function fetchBlogs(req, res) {
+    try {
+        const blogs = await databases.listDocuments(blogsCollectionId, [], 3);
+      res.json(blogs.documents);
+    } catch (error){
+      res.status(500).json({ error: 'Failed to fetch blogs' });
+    }
+});
 
-  return res.json({
-    motto: "Build like a team of hundreds_",
-    learn: "https://appwrite.io/docs",
-    connect: "https://appwrite.io/discord",
-    getInspired: "https://builtwith.appwrite.io",
-  });
-};
+async function fetchChallenges(req, res) {
+    try {
+        const challenges = await databases.listDocuments(challengesCollectionId, [], 5); // Limit to 5 challenges
+        res.json(challenges.documents);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch challenges' });
+    }
+}
+
+module.exports = { fetchBlogs, fetchChallenges };
+      
