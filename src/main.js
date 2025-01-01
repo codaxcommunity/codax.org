@@ -6,8 +6,8 @@ client
   .setEndpoint("https://[YOUR_APPWRITE_ENDPOINT]")
   .setProject("[codaxwebsite]")
 
-const blogsCollectionId = '[YOUR_BLOGS_COLLECTION_ID]';
-const challengesCollectionId = '[YOUR_CHALLENGES_COLLECTION_ID]';
+const blogsCollectionId = '[blogs]';
+const challengesCollectionId = '[challenges]';
 
 async function fetchBlogs(req, res) {
     try {
