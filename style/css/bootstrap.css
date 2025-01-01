@@ -80,7 +80,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(255,205,241,1) 100%);
   --bs-body-color-rgb: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(255,205,241,1) 100%);
-  --bs-body-bg: rgb(34,193,195);
+  --bs-body-bg:linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(255,205,241,1) 100%);
   --bs-body-bg-rgb: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(255,205,241,1) 100%);
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
