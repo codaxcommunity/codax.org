@@ -1,6 +1,6 @@
-# ⚡ Python Starter Function
+# ⚡ Node.js Starter Function
 
-A simple starter function. Edit `src/main.py` to get started and create something awesome! 🚀
+A simple starter function. Edit `src/main.js` to get started and create something awesome! 🚀
 
 ## 🧰 Usage
 
@@ -35,13 +35,13 @@ Sample `200` Response:
 
 ## ⚙️ Configuration
 
-| Setting           | Value                             |
-| ----------------- | --------------------------------- |
-| Runtime           | Python (3.9)                      |
-| Entrypoint        | `src/main.py`                     |
-| Build Commands    | `pip install -r requirements.txt` |
-| Permissions       | `any`                             |
-| Timeout (Seconds) | 15                                |
+| Setting           | Value         |
+| ----------------- | ------------- |
+| Runtime           | Node (18.0)   |
+| Entrypoint        | `src/main.js` |
+| Build Commands    | `npm install` |
+| Permissions       | `any`         |
+| Timeout (Seconds) | 15            |
 
 ## 🔒 Environment Variables
 
