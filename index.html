@@ -35,7 +35,7 @@
         const collectionId = '[blogs]'; 
 
         try {
-          const response = await databases.listDocuments(codaxwebsite, blogs);
+          const response = await databases.listDocuments(databaseId, collectionId);
           const blogsContainer = document.getElementById('blogs-container');
           blogsContainer.innerHTML = '';
 
