@@ -16,70 +16,60 @@
     <link href="./style/style.css" rel="stylesheet">
     <link href="./img/logo.png" rel="icon" type="image">
 
-    <style></style>
+    <style>
+      .blog-entry {
+        margin-bottom: 2em;
+        padding: 1em;
+        border-bottom: 1px solid #ddd;
+      }
+      .blog-meta {
+        font-size: 0.9em;
+        color: #666;
+      }
+    </style>
 
     <script>
       const client = new Appwrite.Client();
       const databases = new Appwrite.Databases(client);
 
-      client.setEndpoint('https://cloud.appwrite.io/v1').setProject('codaxwebsite');
+      client
+        .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your endpoint
+        .setProject('codaxwebsite');                // Replace with your project ID
 
       async function fetchBlogs() {
-        const databaseId = 'codaxwebsite';
-        const collectionId = 'blogs';
+        const databaseId = 'codaxwebsite'; // Replace with your actual database ID
+        const collectionId = 'blogs';     // Replace with your collection ID
 
         try {
           const response = await databases.listDocuments(databaseId, collectionId);
-          const blogsContainer = document.getElementById('blogs-container');
-          blogsContainer.innerHTML = '';
 
-          response.documents.forEach(blog => {
-            const blogHTML = `
-              <div class="mb-0">
-                <h1>${blog.title}</h1>
-                <p class="blog-post-meta">${new Date(blog.createdAt).toDateString()} by ${blog.author}</p>
-                <p>${blog.content.substring(0, 150)}...</p>
-                <a href="./section/blogs/blog_${blog.$id}.html" class="icon-link gap-1 icon-link-hover stretched-link">Continue reading</a>
-              </div>
-              <br>`;
-            blogsContainer.innerHTML += blogHTML;
-          });
+          const blogsContainer = document.getElementById('blogs-container');
+          blogsContainer.innerHTML = ''; // Clear existing content
+
+          if (response.documents.length > 0) {
+            response.documents.forEach(blog => {
+              const blogHTML = `
+                <div class="blog-entry">
+                  <h1>${blog.title}</h1>
+                  <p class="blog-meta">
+                    Published on: ${new Date(blog.publish_date).toLocaleDateString()} 
+                    by <a href="${blog.author_link || '#'}">${blog.author || 'Unknown'}</a>
+                  </p>
+                  <div>${blog.content}</div>
+                </div>`;
+              blogsContainer.innerHTML += blogHTML;
+            });
+          } else {
+            blogsContainer.innerHTML = `<p>No blogs found.</p>`;
+          }
         } catch (error) {
           console.error('Error fetching blogs:', error);
+          const blogsContainer = document.getElementById('blogs-container');
+          blogsContainer.innerHTML = `<p>Error loading blogs. Please try again later.</p>`;
         }
       }
 
-      async function fetchChallenges() {
-        const databaseId = 'codaxwebsite';
-        const collectionId = 'challenges';
-
-        try {
-          const response = await databases.listDocuments(databaseId, collectionId);
-          const challengesContainer = document.getElementById('challenges-container');
-          challengesContainer.innerHTML = '';
-
-          response.documents.forEach(challenge => {
-            const challengeHTML = `
-              <li>
-                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                  <img class="cht" src="${challenge.iconUrl}">
-                  <div class="col-lg-8">
-                    <h6 class="mb-0">${challenge.title}</h6>
-                    <small class="text-body-secondary">${challenge.author}</small>
-                  </div>
-                </a>
-              </li>`;
-            challengesContainer.innerHTML += challengeHTML;
-          });
-        } catch (error) {
-          console.error('Error fetching challenges:', error);
-        }
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        fetchBlogs();
-        fetchChallenges();
-      });
+      document.addEventListener('DOMContentLoaded', fetchBlogs);
     </script>
   </head>
   <body>
@@ -98,34 +88,10 @@
         </div>
       </header>
 
-      <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-center">
-          <a class="nav-item nav-link link-body-emphasis active" href="./index.html">Home</a>
-          <a class="nav-item nav-link link-body-emphasis active" href="#">Challenges</a>
-          <a class="nav-item nav-link link-body-emphasis active" href="#">Events</a>
-          <a class="nav-item nav-link link-body-emphasis active" href="./index.html#blogs">Blogs</a>
-          <a class="nav-item nav-link link-body-emphasis active" href="./section/about_us.html">About Us</a>
-        </nav>
+      <div id="blogs-container" class="mt-5">
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">Blogs</h3>
+        <p>Loading blogs...</p>
       </div>
-
-      <main class="container">
-        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary text-center">
-          <img src="./img/logo.png" height="200vh"><br>
-          <h1>CODAX</h1>
-        </div>
-
-        <div id="blogs-container">
-          <h3 id="blogs" class="pb-4 mb-4 fst-italic border-bottom">Blogs</h3>
-          <p>Loading blogs...</p>
-        </div>
-
-        <div id="challenges-container" class="p-4">
-          <h4 class="fst-italic">Recent Challenges</h4>
-          <ul class="list-unstyled">
-            <li>Loading challenges...</li>
-          </ul>
-        </div>
-      </main>
 
       <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
         Codax Official Website
