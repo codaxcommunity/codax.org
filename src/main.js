@@ -2,7 +2,7 @@ const sdk = require("node-appwrite");
 const client = new sdk.Client();
 const databases = new sdk.Databases(client);
 
-import { posts,blogs} from 'appwrite';
+import { databases} from 'appwrite';
 
 
 client
