@@ -16,23 +16,17 @@
     <link href="./style/style.css" rel="stylesheet">
     <link href="./img/logo.png" rel="icon" type="image">
 
-    <style>
-      /* Add custom CSS here */
-    </style>
+    <style></style>
 
     <script>
-      // Initialize Appwrite SDK
       const client = new Appwrite.Client();
       const databases = new Appwrite.Databases(client);
 
-      client
-        .setEndpoint('https://cloud.appwrite.io/v1') 
-        .setProject('[codaxwebsite]');                
+      client.setEndpoint('https://cloud.appwrite.io/v1').setProject('codaxwebsite');
 
-      // Fetch blogs dynamically
       async function fetchBlogs() {
-        const databaseId = '[codaxwebsite]';        
-        const collectionId = '[blogs]'; 
+        const databaseId = 'codaxwebsite';
+        const collectionId = 'blogs';
 
         try {
           const response = await databases.listDocuments(databaseId, collectionId);
@@ -55,10 +49,9 @@
         }
       }
 
-      // Fetch challenges dynamically
       async function fetchChallenges() {
-        const databaseId = '[codaxwebsite]';           
-        const collectionId = '[challenges]'; 
+        const databaseId = 'codaxwebsite';
+        const collectionId = 'challenges';
 
         try {
           const response = await databases.listDocuments(databaseId, collectionId);
@@ -83,7 +76,6 @@
         }
       }
 
-      // Call APIs on page load
       document.addEventListener('DOMContentLoaded', () => {
         fetchBlogs();
         fetchChallenges();
@@ -92,7 +84,6 @@
   </head>
   <body>
     <div class="container">
-      <!-- Header Section -->
       <header class="border-bottom lh-1 py-3">
         <div class="row flex-nowrap justify-content-center align-items-center">
           <div class="col-4 pt-1">
@@ -107,7 +98,6 @@
         </div>
       </header>
 
-      <!-- Navigation -->
       <div class="nav-scroller py-1 mb-3 border-bottom">
         <nav class="nav nav-underline justify-content-center">
           <a class="nav-item nav-link link-body-emphasis active" href="./index.html">Home</a>
@@ -118,21 +108,17 @@
         </nav>
       </div>
 
-      <!-- Main Content -->
       <main class="container">
-        <!-- Hero Section -->
         <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary text-center">
           <img src="./img/logo.png" height="200vh"><br>
           <h1>CODAX</h1>
         </div>
 
-        <!-- Blogs Section -->
         <div id="blogs-container">
           <h3 id="blogs" class="pb-4 mb-4 fst-italic border-bottom">Blogs</h3>
           <p>Loading blogs...</p>
         </div>
 
-        <!-- Challenges Section -->
         <div id="challenges-container" class="p-4">
           <h4 class="fst-italic">Recent Challenges</h4>
           <ul class="list-unstyled">
@@ -141,7 +127,6 @@
         </div>
       </main>
 
-      <!-- Footer -->
       <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
         Codax Official Website
       </footer>
