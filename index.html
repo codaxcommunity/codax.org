@@ -1,45 +1,102 @@
-
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@latest"></script>
     <script src="./js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Official Website of the Codax Community">
     <meta property="og:description" content="Opisyal nga Website sang Komunidad sang Codax "/>
     <meta name="author" content="Trion05">
     <meta name="generator" content="Hugo 0.122.0">
     <title>The Codax Official</title>
 
-    <link href="./style/css/bootstrap.css" rel="stylesheet">
+    <link href="./style/css/bootstrap.min.css" rel="stylesheet">
     <link href="./style/style.css" rel="stylesheet">
     <link href="./img/logo.png" rel="icon" type="image">
+
+    <style>
+      /* Add custom CSS here */
+    </style>
+
     <script>
-      fetch('https://6774e57a70d9a884ee31.appwrite.global/', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-Appwrite-Project': '[YOUR_PROJECT_ID]',
-        'X-Appwrite-Key': '[YOUR_API_KEY]',  // If you use a secret key
-    },
-    body: JSON.stringify({})  // You can pass additional data if necessary
-})
-.then(response => response.json())
-.then(data => {
-    console.log(data);  // Handle the response
-})
-.catch(error => {
-    console.error('Error fetching data:', error);
-});
-</script>
+      // Initialize Appwrite SDK
+      const client = new Appwrite.Client();
+      const databases = new Appwrite.Databases(client);
+
+      client
+        .setEndpoint('https://cloud.appwrite.io/v1') 
+        .setProject('[codaxwebsite]');                
+
+      // Fetch blogs dynamically
+      async function fetchBlogs() {
+        const databaseId = '[codaxwebsite]';        
+        const collectionId = '[blogs]'; 
+
+        try {
+          const response = await databases.listDocuments(codaxwebsite, blogs);
+          const blogsContainer = document.getElementById('blogs-container');
+          blogsContainer.innerHTML = '';
+
+          response.documents.forEach(blog => {
+            const blogHTML = `
+              <div class="mb-0">
+                <h1>${blog.title}</h1>
+                <p class="blog-post-meta">${new Date(blog.createdAt).toDateString()} by ${blog.author}</p>
+                <p>${blog.content.substring(0, 150)}...</p>
+                <a href="./section/blogs/blog_${blog.$id}.html" class="icon-link gap-1 icon-link-hover stretched-link">Continue reading</a>
+              </div>
+              <br>`;
+            blogsContainer.innerHTML += blogHTML;
+          });
+        } catch (error) {
+          console.error('Error fetching blogs:', error);
+        }
+      }
+
+      // Fetch challenges dynamically
+      async function fetchChallenges() {
+        const databaseId = '[codaxwebsite]';           
+        const collectionId = '[challenges]'; 
+
+        try {
+          const response = await databases.listDocuments(databaseId, collectionId);
+          const challengesContainer = document.getElementById('challenges-container');
+          challengesContainer.innerHTML = '';
+
+          response.documents.forEach(challenge => {
+            const challengeHTML = `
+              <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                  <img class="cht" src="${challenge.iconUrl}">
+                  <div class="col-lg-8">
+                    <h6 class="mb-0">${challenge.title}</h6>
+                    <small class="text-body-secondary">${challenge.author}</small>
+                  </div>
+                </a>
+              </li>`;
+            challengesContainer.innerHTML += challengeHTML;
+          });
+        } catch (error) {
+          console.error('Error fetching challenges:', error);
+        }
+      }
+
+      // Call APIs on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        fetchBlogs();
+        fetchChallenges();
+      });
+    </script>
   </head>
   <body>
     <div class="container">
+      <!-- Header Section -->
       <header class="border-bottom lh-1 py-3">
         <div class="row flex-nowrap justify-content-center align-items-center">
           <div class="col-4 pt-1">
-            <img src="./img/alt_logo.png" class="icon" alt="Codax Logo">
+            <img src="./img/alt_logo.png" class="icon">
           </div>
           <div class="col-4 text-center">
             <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Codax</a>
@@ -50,119 +107,46 @@
         </div>
       </header>
 
+      <!-- Navigation -->
       <div class="nav-scroller py-1 mb-3 border-bottom">
         <nav class="nav nav-underline justify-content-center">
-          <a class="nav-item nav-link link-body-emphasis active" href="#">Home</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Challenges</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Events</a>
-          <a class="nav-item nav-link link-body-emphasis" href="./index.html#blogs">Blogs</a>
-          <a class="nav-item nav-link link-body-emphasis" href="./section/about_us.html">About Us</a>
+          <a class="nav-item nav-link link-body-emphasis active" href="./index.html">Home</a>
+          <a class="nav-item nav-link link-body-emphasis active" href="#">Challenges</a>
+          <a class="nav-item nav-link link-body-emphasis active" href="#">Events</a>
+          <a class="nav-item nav-link link-body-emphasis active" href="./index.html#blogs">Blogs</a>
+          <a class="nav-item nav-link link-body-emphasis active" href="./section/about_us.html">About Us</a>
         </nav>
       </div>
+
+      <!-- Main Content -->
+      <main class="container">
+        <!-- Hero Section -->
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary text-center">
+          <img src="./img/logo.png" height="200vh"><br>
+          <h1>CODAX</h1>
+        </div>
+
+        <!-- Blogs Section -->
+        <div id="blogs-container">
+          <h3 id="blogs" class="pb-4 mb-4 fst-italic border-bottom">Blogs</h3>
+          <p>Loading blogs...</p>
+        </div>
+
+        <!-- Challenges Section -->
+        <div id="challenges-container" class="p-4">
+          <h4 class="fst-italic">Recent Challenges</h4>
+          <ul class="list-unstyled">
+            <li>Loading challenges...</li>
+          </ul>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+        Codax Official Website
+      </footer>
     </div>
 
-    <main class="container">
-      <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary text-center">
-        <img src="./img/logo.png" height="200vh" alt="Codax Main Logo"><br>
-        <h1>CODAX</h1>
-      </div>
-
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary-emphasis">About Us</strong>
-              <h3 class="mb-0">Codax Core Team</h3>
-              <div class="mb-1 text-body-secondary">Mod Trion</div>
-              <p class="card-text mb-auto">The CODAX Core Team is a dedicated group of the Codax community members...</p>
-              <a href="./section/about_us.html#core" class="icon-link gap-1 icon-link-hover stretched-link">Continue reading</a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <img class="bd-placeholder-img" width="200" height="250" src="./img/alt_logo.png" alt="Codax Core Team Logo">
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Challenges</strong>
-              <h3 class="mb-0">101 Challenge</h3>
-              <div class="mb-1 text-body-secondary">Founder Matt</div>
-              <p class="mb-auto"></p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">Continue reading</a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <rect width="100%" height="100%" fill="#55595c"/>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dynamic Blogs Section -->
-      <div id="blogs">
-        <h3 class="pb-4 mb-4 fst-italic border-bottom">Blogs</h3>
-        <div id="blog-container"></div>
-      </div>
-      <script>
-        fetch('/api/blogs?limit=3')
-          .then(response => response.json())
-          .then(data => {
-            const blogContainer = document.getElementById('blog-container');
-            blogContainer.innerHTML = data.map(blog => `
-              <div class="mb-4">
-                <h2>${blog.title}</h2>
-                <p class="blog-post-meta">
-                  ${blog.publishDate} by <a href="${blog.authorLink}">${blog.author}</a>
-                </p>
-                <p>${blog.headline}</p>
-                <a href="${blog.link}" class="icon-link gap-1">Continue reading</a>
-              </div>
-            `).join('');
-          })
-          .catch(err => console.error('Error loading blogs:', err));
-      </script>
-
-      <!-- Challenges Sidebar -->
-      <div class="col-md-4">
-        <div id="challenges">
-          <h4 class="fst-italic">Challenges</h4>
-          <ul id="challenge-list" class="list-unstyled"></ul>
-        </div>
-        <script>
-          fetch('/api/challenges?limit=5')
-            .then(response => response.json())
-            .then(data => {
-              const challengeList = document.getElementById('challenge-list');
-              challengeList.innerHTML = data.map(challenge => `
-                <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="${challenge.link}">
-                    <img class="cht" src="${challenge.icon}" alt="${challenge.title}" width="50" />
-                    <div class="col-lg-8">
-                      <h6 class="mb-0">${challenge.title}</h6>
-                      <small class="text-body-secondary">${challenge.author}</small>
-                    </div>
-                  </a>
-                </li>
-              `).join('');
-            })
-            .catch(err => console.error('Error loading challenges:', err));
-        </script>
-      </div>
-    </main>
-
-    <!-- Reusable Footer -->
-    <footer id="footer"></footer>
-    <script>
-      fetch('/includes/footer.html')
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById('footer').innerHTML = html;
-        })
-        .catch(err => console.error('Error loading footer:', err));
-    </script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
