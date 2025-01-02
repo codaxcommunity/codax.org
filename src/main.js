@@ -3,11 +3,10 @@ const client = new sdk.Client();
 const databases = new sdk.Databases(client);
 
 client
-  .setEndpoint("https://[YOUR_APPWRITE_ENDPOINT]")
-  .setProject("[codaxwebsite]")
-
-const blogsCollectionId = '[blogs]';
-const challengesCollectionId = '[challenges]';
+   .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your endpoint
+        .setProject('codaxwebsite');                // Replace with your project ID
+const blogsCollectionId = 'blogs';
+const challengesCollectionId = 'challenges';
 
 async function fetchBlogs(req, res) {
     try {
