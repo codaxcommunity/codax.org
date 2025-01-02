@@ -2,6 +2,9 @@ const sdk = require("node-appwrite");
 const client = new sdk.Client();
 const databases = new sdk.Databases(client);
 
+import { posts,blogs} from 'appwrite';
+
+
 client
    .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your endpoint
         .setProject('codaxwebsite');                // Replace with your project ID
