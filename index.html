@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
-   <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.1"></script>
 
     <script src="./js/color-modes.js"></script>
 
@@ -36,7 +36,7 @@
 
         client
           .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your endpoint
-          .setProject('codaxwebsite');                // Replace with your project ID
+          .setProject('codaxweb')                    // Replace with your project ID
 
         async function fetchBlogs() {
           const databaseId = 'posts'; // Replace with your actual database ID
@@ -54,9 +54,10 @@
                   <div class="blog-entry">
                     <h1>${blog.title}</h1>
                     <p class="blog-meta">
-                      Published on: ${new Date(blog.publish_date).toLocaleDateString()} 
+                      Published on: ${new Date(blog.date).toLocaleDateString()} 
                       by <a href="${blog.author_link || '#'}">${blog.author || 'Unknown'}</a>
                     </p>
+                    <h2>${blog.headline}</h2>
                     <div>${blog.content}</div>
                   </div>`;
                 blogsContainer.innerHTML += blogHTML;
