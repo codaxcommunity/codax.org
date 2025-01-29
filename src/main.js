@@ -1,1 +1,0 @@
-const apiKey = process.env.APPWRITE_API_KEY;
