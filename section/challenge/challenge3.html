@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <script src="./js/color-modes.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Trion05">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>The Codax Official</title>
+    <link href="../../style/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../style/style.css" rel="stylesheet">
+    <link href="../../img/logo.png" rel="icon" type="image">
+  </head>
+  <body>
+    <div class="container">
+      <header class="border-bottom lh-1 py-3">
+        <div class="row flex-nowrap justify-content-center align-items-center">
+          <div class="col-4 pt-1">
+            <img src="../../img/alt_logo.png" class="icon">
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Codax</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            <a class="btn btn-sm btn-outline-secondary" href="#">Join Us</a>
+          </div>
+        </div>
+      </header>
+      <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-center">
+          <a class="nav-item nav-link link-body-emphasis active" href="./../index.html">Home</a>
+          <a class="nav-item nav-link link-body-emphasis" href="#">Challenges</a>
+          <a class="nav-item nav-link link-body-emphasis" href="#">Events</a>
+          <a class="nav-item nav-link link-body-emphasis" href="./index.html#blogs">Blogs</a>
+          <a class="nav-item nav-link link-body-emphasis" href="../../section/about_us.html">About Us</a>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <!-- Challenge 3 Details Section -->
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <img src="../../img/challenge/poster/challenge3.svg" alt="Challenge 3" class="bd-placeholder-img card-img-top" width="100%" height="225">
+            <h1 class="fw-light">Challenge 3: BMI Calculator Design</h1><h6>BY: CHALLENGE MASTER TAKAKU</h6>
+            <p class="lead text-muted">
+              In this challenge, you'll be tasked with designing a simple web interface for a BMI calculator using CSS. The goal is to bring life to the BMI calculator created with HTML and JavaScript by adding creative and functional designs.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <h2>Challenge Instructions</h2>
+              <p style="text-align: justify;">
+                <strong>Objective:</strong> Use CSS to design a visually appealing and functional BMI calculator interface. The calculator is already built using HTML and JavaScript, and your task is to enhance its appearance using CSS.
+              </p>
+              <h3>Steps:</h3>
+              <ol style="text-align: justify;">
+                <li>Set up your development environment with a compiler that supports HTML, CSS, and JavaScript. We recommend using Visual Studio Code.</li>
+                <li>Install all necessary extensions to run HTML, CSS, and JavaScript files.</li>
+                <li>Create three files:
+                  <ul>
+                    <li>Name the HTML file as <code>start.html</code>.</li>
+                    <li>Name the JavaScript file as <code>start.js</code>.</li>
+                    <li>Name the CSS file as <code>start.css</code>.</li>
+                  </ul>
+                </li>
+                <li>Copy the provided HTML and JavaScript code into their respective files.</li>
+                <li>Use the CSS file to design the BMI calculator. Be creative with colors, layouts, and animations!</li>
+                <li>Take a screenshot of your CSS code and the final product, then share it in the <strong>#coding-challenges</strong> channel.</li>
+              </ol>
+              <h3>Provided Code:</h3>
+              <p style="text-align: justify;">
+                Below is the HTML and JavaScript code for the BMI calculator. Paste these into their respective files:
+              </p>
+              <h4>HTML:</h4>
+              <pre style="background-color: #2d2d2d; color: #f8f9fa; padding: 10px; border-radius: 5px;">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;link rel="stylesheet" href="start.css"&gt;
+  &lt;title&gt;BMI Calculator&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;h1&gt;BMI Calculator&lt;/h1&gt;
+    &lt;label for="hinp"&gt;Height (m):&lt;/label&gt;
+    &lt;input type="number" id="hinp" step="0.01"&gt;
+    &lt;label for="winp"&gt;Weight (kg):&lt;/label&gt;
+    &lt;input type="number" id="winp" step="0.01"&gt;
+    &lt;button onclick="calculate()"&gt;Calculate BMI&lt;/button&gt;
+    &lt;p id="result"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;script src="start.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+              <h4>JavaScript:</h4>
+              <pre style="background-color: #2d2d2d; color: #f8f9fa; padding: 10px; border-radius: 5px;">
+// JavaScript
+function calculate() {
+  let height = parseFloat(document.getElementById('hinp').value);
+  let weight = parseFloat(document.getElementById('winp').value);
+
+  let msqr = height * height;
+  let result = weight / msqr;
+
+  let bmicat;
+  if (result < 18.5) { bmicat = 'Underweight'; }
+  else if (result < 24.9) { bmicat = 'Normal'; }
+  else if (result < 29.9) { bmicat = 'Overweight'; }
+  else { bmicat = 'Obese'; }
+
+  document.getElementById('result').innerText = `Your BMI is: ${result.toFixed(2)} (${bmicat})`;
+}
+              </pre>
+              <h3>Submission:</h3>
+              <p style="text-align: justify;">
+                Post your solution in the <strong>#coding-challenges</strong> channel along with screenshots of your CSS and the final product. Feel free to share your ideas on improving the design or functionality!
+              </p>
+              <p style="text-align: justify;">
+                Let’s see who can create the most visually appealing and functional BMI calculator! Code on, CODAX!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+      Codax Official Website<br>
+    </footer>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
